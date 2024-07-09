@@ -4,8 +4,8 @@ using Safe.Set;
 
 namespace Safe;
 
-public interface ISafeEnum<TEnum> : IValue<string, TEnum>, IComparable<TEnum>
-where TEnum: ISafeEnum<TEnum>
+public interface ITypedEnum<TEnum> : IValue<string, TEnum>, IComparable<TEnum>, IEquatable<TEnum>
+where TEnum: ITypedEnum<TEnum>
 {
     static TEnum IValue<string, TEnum>.Create(string? value)
     {
@@ -20,11 +20,12 @@ where TEnum: ISafeEnum<TEnum>
     public static virtual bool TryParse(string? value, [NotNullWhen(true)] out TEnum? obj)
         => TEnum.Set.TryParse(value, out obj);
 
-    public static virtual SafeEnumSet<TEnum> Set => SafeEnumSetBuilder.Create<TEnum>()
+    public static virtual TypedEnumSet<TEnum> Set => TypedEnumSetBuilder.Create<TEnum>()
         .ReflectFromType(x => true)
         .Build();
 
     static ImmutableArray<TEnum> All => TEnum.Set.All;
     
     int IComparable<TEnum>.CompareTo(TEnum? other) => string.Compare(Value, other?.Value, StringComparison.OrdinalIgnoreCase);
+    bool IEquatable<TEnum>.Equals(TEnum? other) => !ReferenceEquals(other, null) && string.Equals(Value, other.Value, StringComparison.OrdinalIgnoreCase);
 }

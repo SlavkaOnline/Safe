@@ -2,18 +2,18 @@ using System.Collections.Concurrent;
 
 namespace Safe.Set;
 
- public static class SafeEnumSetBuilder
+ public static class TypedEnumSetBuilder
     {
         public static SafeEnumSetBuilder<TEnum> Create<TEnum>()
-        where TEnum: ISafeEnum<TEnum>
+        where TEnum: ITypedEnum<TEnum>
             => new ();
  
         public static SafeEnumSetBuilder<TEnum> Create<TEnum>(IEqualityComparer<string> comparer)
-            where TEnum : ISafeEnum<TEnum> => new (comparer);
+            where TEnum : ITypedEnum<TEnum> => new (comparer);
     }
 
     public class SafeEnumSetBuilder<TEnum>
-        where TEnum : ISafeEnum<TEnum>
+        where TEnum : ITypedEnum<TEnum>
     {
         private readonly IEqualityComparer<string> _comparer;
         private readonly Dictionary<string, TEnum> _data;
@@ -34,6 +34,6 @@ namespace Safe.Set;
             return this;
         }
 
-        public SafeEnumSet<TEnum> Build() =>
+        public TypedEnumSet<TEnum> Build() =>
             new(new ConcurrentDictionary<string, TEnum>(_data, _comparer));
     }

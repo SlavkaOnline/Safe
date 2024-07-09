@@ -5,14 +5,14 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Safe.Set;
 
-public class SafeEnumSet<TEnum> : IReadOnlyDictionary<string, TEnum>
-    where TEnum : ISafeEnum<TEnum>
+public class TypedEnumSet<TEnum> : IReadOnlyDictionary<string, TEnum>
+    where TEnum : ITypedEnum<TEnum>
 {
     private readonly ConcurrentDictionary<string, TEnum> _dictionary;
 
     public ImmutableArray<TEnum> All { get; }
 
-    public SafeEnumSet(ConcurrentDictionary<string, TEnum> dictionary)
+    public TypedEnumSet(ConcurrentDictionary<string, TEnum> dictionary)
     {
 
         _dictionary = dictionary;

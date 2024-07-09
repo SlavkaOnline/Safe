@@ -3,10 +3,10 @@ using System.Reflection;
 
 namespace Safe.Set;
 
-public static class SafeEnumSetExtensions
+public static class TypedEnumSetExtensions
 {
-    public static bool TryParse<TEnum>(this SafeEnumSet<TEnum> set, string? value, [MaybeNullWhen(false)] out TEnum result)
-        where TEnum : ISafeEnum<TEnum>
+    public static bool TryParse<TEnum>(this TypedEnumSet<TEnum> set, string? value, [MaybeNullWhen(false)] out TEnum result)
+        where TEnum : ITypedEnum<TEnum>
     {
         if (value is null)
         {
@@ -17,8 +17,8 @@ public static class SafeEnumSetExtensions
         return set.TryGetValue(value, out result);
     }
 
-    public static TEnum Parse<TEnum>(this SafeEnumSet<TEnum> set, string? value)
-        where TEnum : ISafeEnum<TEnum>
+    public static TEnum Parse<TEnum>(this TypedEnumSet<TEnum> set, string? value)
+        where TEnum : ITypedEnum<TEnum>
     {
         if (!set.TryParse(value, out var type))
         {
@@ -32,7 +32,7 @@ public static class SafeEnumSetExtensions
     public static SafeEnumSetBuilder<TEnum> ReflectFromType<TEnum>(
         this SafeEnumSetBuilder<TEnum> builder,
         Func<TEnum, bool> include
-    ) where TEnum : ISafeEnum<TEnum>
+    ) where TEnum : ITypedEnum<TEnum>
     {
         var all = typeof(TEnum).GetProperties(BindingFlags.Public | BindingFlags.Static)
             .Where(p => typeof(TEnum).IsAssignableFrom(p.PropertyType))

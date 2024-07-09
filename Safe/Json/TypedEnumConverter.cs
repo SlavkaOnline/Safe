@@ -3,8 +3,8 @@ using System.Text.Json.Serialization;
 
 namespace Safe.Json;
 
-public class SafeEnumConverter<TEnum> : JsonConverter<TEnum>
-    where TEnum : ISafeEnum<TEnum>
+public class TypedEnumConverter<TEnum> : JsonConverter<TEnum>
+    where TEnum : ITypedEnum<TEnum>
 {
     public override TEnum Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

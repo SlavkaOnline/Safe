@@ -5,26 +5,26 @@ namespace Safe.Tests;
 public class SetTests
 {
     
-    class SafeEnum : ISafeEnum<SafeEnum>
+    class TypedEnum : ITypedEnum<TypedEnum>
     {
         public string Value { get; }
 
-        private SafeEnum(string value)
+        private TypedEnum(string value)
         {
             Value = value;
         }
 
-        public static SafeEnum One => new("1");
-        public static SafeEnum Two => new("2");
-        public static SafeEnum Three => new("3");
+        public static TypedEnum One => new("1");
+        public static TypedEnum Two => new("2");
+        public static TypedEnum Three => new("3");
         
-        public static ImmutableArray<SafeEnum> All => ISafeEnum<SafeEnum>.All;
+        public static ImmutableArray<TypedEnum> All => ITypedEnum<TypedEnum>.All;
     }
     
     [Fact]
     public void GetAll()
     {
-        var all = SafeEnum.All;
+        var all = TypedEnum.All;
         
         Assert.Collection(all, 
             val => Assert.Equal("1", val.Value),

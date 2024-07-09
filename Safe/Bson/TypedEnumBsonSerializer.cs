@@ -3,8 +3,8 @@ using MongoDB.Bson.Serialization;
 
 namespace Safe.Bson;
 
-public class SafeEnumBsonSerializer<TEnum> : IBsonSerializer<TEnum>
-    where TEnum : ISafeEnum<TEnum>
+public class TypedEnumBsonSerializer<TEnum> :  IBsonSerializer<TEnum>
+    where TEnum : ITypedEnum<TEnum>
 {
     object IBsonSerializer.Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
     {
@@ -37,5 +37,5 @@ public class SafeEnumBsonSerializer<TEnum> : IBsonSerializer<TEnum>
         Serialize(context, args, (TEnum)value);
     }
 
-    public Type ValueType => typeof(ISafeEnum<TEnum>);
+    public Type ValueType => typeof(TEnum);
 }
