@@ -1,6 +1,7 @@
-using Safe.Set;
+using TypedEnum;
+using TypedEnum.Set;
 
-namespace Safe.Tests.Data;
+namespace TypedEnum.Tests.Data;
 
 interface ITypedEnumInterface : ITypedEnum<ITypedEnumInterface>
 {

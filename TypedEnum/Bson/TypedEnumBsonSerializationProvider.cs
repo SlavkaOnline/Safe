@@ -1,6 +1,6 @@
 using MongoDB.Bson.Serialization;
 
-namespace Safe.Bson;
+namespace TypedEnum.Bson;
 
 public class TypedEnumBsonSerializationProvider : IBsonSerializationProvider
 {

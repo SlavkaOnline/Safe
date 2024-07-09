@@ -2,10 +2,10 @@ using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
-using Safe.Bson;
-using Safe.Tests.Data;
+using TypedEnum.Bson;
+using TypedEnum.Tests.Data;
 
-namespace Safe.Tests;
+namespace TypedEnum.Tests;
 
 public class TypedEnumBsonSerializerTests
 {

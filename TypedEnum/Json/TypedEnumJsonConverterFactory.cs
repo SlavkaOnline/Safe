@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Safe.Json;
+namespace TypedEnum.Json;
 
 public class TypedEnumJsonConverterFactory : JsonConverterFactory
 {
@@ -18,7 +18,7 @@ public class TypedEnumJsonConverterFactory : JsonConverterFactory
 
         var enumType = safeEnum.GetGenericArguments()[0];
 
-        var controllerType =  typeof(TypedEnumConverter<>).MakeGenericType(enumType);
+        var controllerType = typeof(TypedEnumConverter<>).MakeGenericType(enumType);
         return (JsonConverter)Activator.CreateInstance(controllerType)!;
     }
 }

@@ -1,8 +1,8 @@
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
-using Safe.Set;
+using TypedEnum.Set;
 
-namespace Safe;
+namespace TypedEnum;
 
 public interface ITypedEnum<TEnum> : IValue<string, TEnum>, IComparable<TEnum>, IEquatable<TEnum>
 where TEnum: ITypedEnum<TEnum>
@@ -21,10 +21,10 @@ where TEnum: ITypedEnum<TEnum>
         => TEnum.Set.TryParse(value, out obj);
 
     public static virtual TypedEnumSet<TEnum> Set => TypedEnumSetBuilder.Create<TEnum>()
-        .ReflectFromType(x => true)
+        .ReflectFromType(_ => true)
         .Build();
 
-    static ImmutableArray<TEnum> All => TEnum.Set.All;
+    static virtual ImmutableArray<TEnum> All => TEnum.Set.All;
     
     int IComparable<TEnum>.CompareTo(TEnum? other) => string.Compare(Value, other?.Value, StringComparison.OrdinalIgnoreCase);
     bool IEquatable<TEnum>.Equals(TEnum? other) => !ReferenceEquals(other, null) && string.Equals(Value, other.Value, StringComparison.OrdinalIgnoreCase);

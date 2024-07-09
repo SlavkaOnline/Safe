@@ -1,7 +1,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 
-namespace Safe.Bson;
+namespace TypedEnum.Bson;
 
 public class TypedEnumBsonSerializer<TEnum> :  IBsonSerializer<TEnum>
     where TEnum : ITypedEnum<TEnum>
@@ -23,7 +23,7 @@ public class TypedEnumBsonSerializer<TEnum> :  IBsonSerializer<TEnum>
             var value = context.Reader.ReadString();
             if (!TEnum.TryParse(value, out var type))
             {
-                throw new InvalidCastException($"Не удалось преобразовать значение {value} в тип {typeof(TEnum)}");
+                throw new FormatException($"Не удалось преобразовать значение {value} в тип {typeof(TEnum)}");
             }
 
             return type;

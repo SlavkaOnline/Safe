@@ -1,10 +1,18 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
-namespace Safe.Set;
+namespace TypedEnum.Set;
 
 public static class TypedEnumSetExtensions
 {
+    /// <summary>
+    /// Попробовать получить значение из множества
+    /// </summary>
+    /// <param name="set"></param>
+    /// <param name="value"></param>
+    /// <param name="result"></param>
+    /// <typeparam name="TEnum"></typeparam>
+    /// <returns></returns>
     public static bool TryParse<TEnum>(this TypedEnumSet<TEnum> set, string? value, [MaybeNullWhen(false)] out TEnum result)
         where TEnum : ITypedEnum<TEnum>
     {
@@ -17,18 +25,32 @@ public static class TypedEnumSetExtensions
         return set.TryGetValue(value, out result);
     }
 
+    /// <summary>
+    /// Получить значение из множества
+    /// </summary>
+    /// <param name="set"></param>
+    /// <param name="value"></param>
+    /// <typeparam name="TEnum"></typeparam>
+    /// <returns></returns>
+    /// <exception cref="FormatException"></exception>
     public static TEnum Parse<TEnum>(this TypedEnumSet<TEnum> set, string? value)
         where TEnum : ITypedEnum<TEnum>
     {
         if (!set.TryParse(value, out var type))
         {
-            throw new FormatException($"Invalid {typeof(TEnum).Name}: {value}");
+            throw new FormatException($"Не удалось преобразовать занчение {value} в тип {typeof(TEnum).FullName}");
         }
 
         return type;
     }
     
-    
+    /// <summary>
+    /// Добавить все публичные статичесике поля в перечислении в построитель с исклучением из списка
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <param name="include">Условие исклчения из списка</param>
+    /// <typeparam name="TEnum"></typeparam>
+    /// <returns></returns>
     public static SafeEnumSetBuilder<TEnum> ReflectFromType<TEnum>(
         this SafeEnumSetBuilder<TEnum> builder,
         Func<TEnum, bool> include

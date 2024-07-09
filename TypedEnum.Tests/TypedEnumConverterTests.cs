@@ -1,9 +1,9 @@
 using System.Text.Json;
-using Safe.Json;
-using Safe.Set;
-using Safe.Tests.Data;
+using TypedEnum.Json;
+using TypedEnum.Set;
+using TypedEnum.Tests.Data;
 
-namespace Safe.Tests;
+namespace TypedEnum.Tests;
 
 public class TypedEnumConverterTests
 {

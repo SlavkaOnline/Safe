@@ -7,6 +7,7 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <RootNamespace>TypedEnum.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Safe\Safe.csproj" />
+    <ProjectReference Include="..\TypedEnum\TypedEnum.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
-using Safe.Set;
+using TypedEnum.Set;
 
-namespace Safe.Tests.Data;
+namespace TypedEnum.Tests.Data;
 
 abstract class TypedEnumClass : ITypedEnum<TypedEnumClass>
 {
@@ -15,7 +15,7 @@ abstract class TypedEnumClass : ITypedEnum<TypedEnumClass>
     public static TypedEnumSet<TypedEnumClass> Set => TypedEnumSetBuilder.Create<TypedEnumClass>()
         .ReflectFromType(x => !ReferenceEquals(x, Undefined))
         .Build();
-        
+    
     private class Ok(string value) : TypedEnumClass
     {
         public override string Value { get; } = value;

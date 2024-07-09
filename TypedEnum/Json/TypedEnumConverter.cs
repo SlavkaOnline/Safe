@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Safe.Json;
+namespace TypedEnum.Json;
 
 public class TypedEnumConverter<TEnum> : JsonConverter<TEnum>
     where TEnum : ITypedEnum<TEnum>
@@ -11,7 +11,7 @@ public class TypedEnumConverter<TEnum> : JsonConverter<TEnum>
         var value = reader.GetString();
         if (!TEnum.TryParse(value, out var type))
         {
-            throw new InvalidCastException($"Не удалось преобразовать значение {value} в тип {typeof(TEnum)}");
+            throw new FormatException($"Не удалось преобразовать значение {value} в тип {typeof(TEnum)}");
         }
 
         return type;

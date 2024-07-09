@@ -3,13 +3,20 @@ using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Safe.Set;
+namespace TypedEnum.Set;
 
+/// <summary>
+/// Можножество всех значений перечисления
+/// </summary>
+/// <typeparam name="TEnum">Перечисление</typeparam>
 public class TypedEnumSet<TEnum> : IReadOnlyDictionary<string, TEnum>
     where TEnum : ITypedEnum<TEnum>
 {
     private readonly ConcurrentDictionary<string, TEnum> _dictionary;
 
+    /// <summary>
+    /// Все значения
+    /// </summary>
     public ImmutableArray<TEnum> All { get; }
 
     public TypedEnumSet(ConcurrentDictionary<string, TEnum> dictionary)

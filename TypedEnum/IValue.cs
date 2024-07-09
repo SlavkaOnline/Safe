@@ -1,4 +1,4 @@
-namespace Safe;
+namespace TypedEnum;
 
 public interface IValue<TValue, out TObject>
 {
