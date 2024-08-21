@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Result\Result.csproj" />
+    <ProjectReference Include="..\ResultLib\ResultLib.csproj" />
   </ItemGroup>
 
 </Project>

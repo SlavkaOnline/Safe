@@ -1,4 +1,4 @@
-namespace Result;
+namespace ResultLib;
 
 public interface IResult;
 

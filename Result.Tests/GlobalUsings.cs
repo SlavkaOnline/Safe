@@ -1,2 +1,2 @@
-global using Xunit;using Result;
+global using Xunit;using ResultLib;
 

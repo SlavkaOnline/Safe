@@ -1,4 +1,4 @@
-namespace Result;
+namespace ResultLib;
 
 public static class Result
 {

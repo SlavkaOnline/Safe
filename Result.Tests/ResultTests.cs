@@ -1,6 +1,6 @@
 namespace Result.Tests;
 
-
+using ResultLib;
 
 public class ResultTests
 {

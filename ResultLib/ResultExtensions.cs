@@ -1,15 +1,15 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
-namespace Result;
+namespace ResultLib;
 
 public static class ResultExtensions
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsOk(
         this IResult result,
-        [NotNullWhen(true)] out IOkResult? ok,
-        [NotNullWhen(false)] out IErrResult? err)
+        [MaybeNullWhen(false)] out IOkResult ok,
+        [MaybeNullWhen(true)] out IErrResult err)
     {
         switch (result)
         {
@@ -32,7 +32,7 @@ public static class ResultExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsOk(
         this IResult result,
-        [NotNullWhen(true)] out IOkResult? ok
+        [MaybeNullWhen(false)] out IOkResult ok
     ) => result.IsOk(out ok, out _);
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -63,7 +63,7 @@ public static class ResultExtensions
     public static bool IsOk<TOk>(
         this IResult<TOk> result,
         [MaybeNullWhen(false)] out TOk ok,
-        [NotNullWhen(false)] out IUnitErrResult<TOk>? err)
+        [MaybeNullWhen(true)] out IUnitErrResult<TOk> err)
     {
         switch (result)
         {
@@ -100,8 +100,8 @@ public static class ResultExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsErr<TOk>(
         this IResult<TOk> result,
-        [NotNullWhen(false)] out TOk? ok,
-        [NotNullWhen(true)] out IUnitErrResult<TOk>? err)
+        [MaybeNullWhen(true)] out TOk ok,
+        [MaybeNullWhen(false)] out IUnitErrResult<TOk> err)
         => !IsOk(result, out ok, out err);
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -112,8 +112,8 @@ public static class ResultExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsOk<TErr>(
         this IUnitResult<TErr> result,
-        [MaybeNullWhen(false)] out IOkResult? ok,
-        [MaybeNullWhen(true)] out TErr? err)
+        [MaybeNullWhen(false)] out IOkResult ok,
+        [MaybeNullWhen(true)] out TErr err)
     {
         switch (result)
         {
@@ -138,7 +138,7 @@ public static class ResultExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsErr<TErr>(
         this IUnitResult<TErr> result,
-        [MaybeNullWhen(false)] out IOkResult? ok,
+        [NotNullWhen(false)] out IOkResult? ok,
         [NotNullWhen(true)] out TErr? err)
     => !IsOk(result, out ok, out err);
     
@@ -161,8 +161,8 @@ public static class ResultExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsOk<TOk, TErr>(
         this IResult<TOk, TErr> result,
-        [MaybeNullWhen(false)] out TOk? ok,
-        [MaybeNullWhen(true)] out TErr? err)
+        [MaybeNullWhen(false)] out TOk ok,
+        [MaybeNullWhen(true)] out TErr err)
     {
         switch (result)
         {
@@ -187,8 +187,8 @@ public static class ResultExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsErr<TOk, TErr>(
         this IResult<TOk, TErr> result,
-        [NotNullWhen(false)] out TOk? ok,
-        [NotNullWhen(true)] out TErr? err)
+        [MaybeNullWhen(true)] out TOk ok,
+        [MaybeNullWhen(false)] out TErr err)
      => !IsOk(result, out ok, out err);
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -205,8 +205,8 @@ public static class ResultExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsErr<TOk, TErr>(
         this IResult<TOk, TErr> result,
-        [NotNullWhen(false)] out TOk? ok)
-        => !IsOk(result, out ok, out _);
+        [NotNullWhen(true)] out TErr? err)
+        => !IsOk(result, out _, out err);
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsErr<TOk, TErr>(
